@@ -12,8 +12,10 @@ def check(values, &test)
   values.each do |input, expected|
     actual = test.call input
     if actual == expected
+      @pass_count += 1
       puts_color ANSI_GREEN, "#{input.inspect} => #{actual.inspect}"
     else
+      @fail_count += 1
       puts_color ANSI_RED, "Expected #{input.inspect} => #{expected.inspect}: got #{actual.inspect}"
     end
   end
@@ -31,6 +33,13 @@ tests = {
    nil  =>  nil,
 }
 
+@pass_count = 0
+@fail_count = 0
+
 check tests do |n|
   f(f(n))
 end
+
+puts '---'
+puts_color ANSI_GREEN, "Passed: #{@pass_count}" if @pass_count > 0
+puts_color ANSI_RED, "Failed: #{@fail_count}" if @fail_count > 0
