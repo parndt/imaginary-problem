@@ -1,7 +1,7 @@
 
 def f(n)
   case n
-  when Integer then Proc.new { n * -1 }
+  when Numeric then Proc.new { n * -1 }
   when Proc    then n.call
   end
 end
