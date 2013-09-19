@@ -12,11 +12,9 @@ class MicroTest
     values.each do |input, expected|
       actual = @test.call input
       if actual == expected
-        @pass_count += 1
-        puts_color ANSI_GREEN, "#{input.inspect} => #{actual.inspect}"
+        pass "#{input.inspect} => #{actual.inspect}"
       else
-        @fail_count += 1
-        puts_color ANSI_RED, "Expected #{input.inspect} => #{expected.inspect}: got #{actual.inspect}"
+        fail "Expected #{input.inspect} => #{expected.inspect}: got #{actual.inspect}"
       end
     end
 
@@ -26,6 +24,16 @@ class MicroTest
   end
 
 private
+
+  def pass(message)
+    @pass_count += 1
+    puts_color ANSI_GREEN, message
+  end
+
+  def fail(message)
+    @fail_count += 1
+    puts_color ANSI_RED, message
+  end
 
   def puts_color(color_code, message)
     puts "\e[0;#{color_code}m" << message << "\e[0m"
