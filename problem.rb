@@ -1,6 +1,9 @@
 
 def f(n)
-  # define f so that f(f(n)) == -n
+  case n
+  when Integer then Proc.new { n * -1 }
+  when Proc    then n.call
+  end
 end
 
 # -- Test "suite"
