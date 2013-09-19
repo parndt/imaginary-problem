@@ -11,6 +11,7 @@ class MicroTest
   def check(values)
     values.each { |input, expected| check_result input, expected }
     puts_totals
+    exit(@fail_count > 0 ? 1 : 0)
   end
 
 private
