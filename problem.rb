@@ -6,7 +6,7 @@ def f(n)
   end
 end
 
-# -- Test "suite"
+# -- Test "framework"
 
 ANSI_GREEN = 32
 ANSI_RED   = 31
@@ -28,22 +28,21 @@ def puts_color(color_code, message)
   puts "\e[0;#{color_code}m" << message << "\e[0m"
 end
 
-tests = {
+@pass_count = 0
+@fail_count = 0
+
+puts '---'
+puts_color ANSI_GREEN, "Passed: #{@pass_count}" if @pass_count > 0
+puts_color ANSI_RED, "Failed: #{@fail_count}" if @fail_count > 0
+
+# -- Test "suite"
+
+test = MicroTest.new { |n| f(f(n)) }
+test.check(
    1    => -1,
    0.1  => -0.1,
   -0.01 =>  0.01,
    0    =>  0,
    nil  =>  nil,
    10   => -1,    # FAIL
-}
-
-@pass_count = 0
-@fail_count = 0
-
-check tests do |n|
-  f(f(n))
-end
-
-puts '---'
-puts_color ANSI_GREEN, "Passed: #{@pass_count}" if @pass_count > 0
-puts_color ANSI_RED, "Failed: #{@fail_count}" if @fail_count > 0
+)
