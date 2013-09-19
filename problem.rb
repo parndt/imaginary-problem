@@ -1,10 +1,8 @@
 require './micro_test'
 
 def f(n)
-  case n
-  when Numeric then Proc.new { n * -1 }
-  when Proc    then n.call
-  end
+  # Solving imaginary problems from scratch in Ruby! /pun
+  n * Complex::I if n
 end
 
 # -- Test "suite"
@@ -16,5 +14,4 @@ test.check(
   -0.01 =>  0.01,
    0    =>  0,
    nil  =>  nil,
-   10   => -1,    # FAIL
 )
