@@ -17,10 +17,7 @@ class MicroTest
         fail "Expected #{input.inspect} => #{expected.inspect}: got #{actual.inspect}"
       end
     end
-
-    puts '---'
-    puts_color ANSI_GREEN, "Passed: #{@pass_count}" if @pass_count > 0
-    puts_color ANSI_RED, "Failed: #{@fail_count}" if @fail_count > 0
+    puts_totals
   end
 
 private
@@ -37,6 +34,12 @@ private
 
   def puts_color(color_code, message)
     puts "\e[0;#{color_code}m" << message << "\e[0m"
+  end
+
+  def puts_totals
+    puts '---'
+    puts_color ANSI_GREEN, "Passed: #{@pass_count}" if @pass_count > 0
+    puts_color ANSI_RED, "Failed: #{@fail_count}" if @fail_count > 0
   end
 
 end
