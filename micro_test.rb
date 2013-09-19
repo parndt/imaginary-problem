@@ -9,18 +9,20 @@ class MicroTest
   end
 
   def check(values)
-    values.each do |input, expected|
-      actual = @test.call input
-      if actual == expected
-        pass "#{input.inspect} => #{actual.inspect}"
-      else
-        fail "Expected #{input.inspect} => #{expected.inspect}: got #{actual.inspect}"
-      end
-    end
+    values.each { |input, expected| check_result input, expected }
     puts_totals
   end
 
 private
+
+  def check_result(input, expected)
+    actual = @test.call input
+    if actual == expected
+      pass "#{input.inspect} => #{actual.inspect}"
+    else
+      fail "Expected #{input.inspect} => #{expected.inspect}: got #{actual.inspect}"
+    end
+  end
 
   def pass(message)
     @pass_count += 1
