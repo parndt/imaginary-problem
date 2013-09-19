@@ -34,6 +34,7 @@ tests = {
   -0.01 =>  0.01,
    0    =>  0,
    nil  =>  nil,
+   10   => -1,    # FAIL
 }
 
 @pass_count = 0
